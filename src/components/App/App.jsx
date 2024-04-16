@@ -44,7 +44,8 @@ export default function App() {
 
   return (
     <>
-      <SearchBar onSubmit={handleSearch}/>
+      <SearchBar onSubmit={handleSearch} />
+      
       {gallery.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
