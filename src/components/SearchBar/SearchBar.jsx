@@ -1,19 +1,19 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function SearchBar({ onSubmit }) {
-    const [value, setValue] = useState("");
-
     const handleSubmit = (evt) => {
         evt.preventDefault();
+
         const form = evt.target;
-        if (!value.trim()) {
-            toast.error("Type here your text!");
-            return;
-        } 
-        onSubmit(value);
-        setValue("");
-    }
+        const query = form.elements.query.value;
+
+
+        !query.trim()
+            ? toast.error("Type here your text!")
+            : onSubmit(query);
+        
+        form.reset();
+    };
 
     return (
         <>
@@ -23,12 +23,25 @@ export default function SearchBar({ onSubmit }) {
     type="text"
     autoComplete="off"
     autoFocus
-    value = {value}
+    name = "query"
     placeholder="Search images and photos"
     onChange={(e) => setValue(e.target.value)}
     />
     <button type="submit">Search</button>
-  </form>
+                </form>
+                
+                <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{
+            duration: "400",
+            style: {
+              border: "1px solid #ff4800",
+              padding: "16px",
+              color: "#ff4800",
+            },
+          }}
+        />
 </header>
         </>
     )
