@@ -1,28 +1,30 @@
 import { useEffect, useState } from 'react'
 import SearchBar from '../SearchBar/SearchBar'
 import { fetchGallery } from '../../gallery'
+import ImageGallery from '../ImageGallery/ImageGallery'
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
 import './App.css'
 
 export default function App() {
   const [gallery, setGallery] = useState([]);
+  const [isloading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-    
-  const handleLoadMore = () => {
-    setPage(page + 1);
-  };
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(""); 
   
-  const handleSearch = (newQuery) => {
+ const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
     setGallery([]);
   }
 
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+  
+
   useEffect(() => {
-    if (gallery === "") {
+    if (gallery.length === 0) {
       return;
   }
   async function getImages() {
@@ -31,24 +33,24 @@ export default function App() {
       setLoading(true);
       const data = await fetchGallery(gallery, page);
       setGallery((prevGallery) => {
-        return [...prevGallery, ...data];
+        return [...prevGallery, ...data.results];
       });
     } catch (error) {
-      setError(true)
+      setError(true);
     } finally {
       setLoading(false);
     }
   }
   getImages();
-}, [page, gallery]);
+}, [page, query, gallery.length]);
 
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
       
-      {gallery.length > 0 && !isLoading && (
-        <LoadMoreBtn onClick={handleLoadMore} />
-      )}
+      {gallery.length > 0 && <ImageGallery items={gallery}/> }
+      
+      <LoadMoreBtn onClick={handleLoadMore} />
     </>
   )
 }
