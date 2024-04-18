@@ -1,4 +1,5 @@
-import toast, {Toaster} from "react-hot-toast";
+// import { Formik } from "formik";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SearchBar({ onSubmit }) {
     const handleSubmit = (evt) => {
@@ -10,7 +11,7 @@ export default function SearchBar({ onSubmit }) {
 
         !query.trim()
             ? toast.error("Type here your text!")
-            : onSubmit(query);
+          : onSubmit({ query });
         
         form.reset();
     };
@@ -25,7 +26,6 @@ export default function SearchBar({ onSubmit }) {
     autoFocus
     name = "query"
     placeholder="Search images and photos"
-    onChange={(e) => setValue(e.target.value)}
     />
     <button type="submit">Search</button>
                 </form>

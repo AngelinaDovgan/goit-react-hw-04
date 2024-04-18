@@ -1,58 +1,78 @@
-import { useEffect, useState } from 'react'
-import SearchBar from '../SearchBar/SearchBar'
-import { fetchGallery } from '../../gallery'
-import ImageGallery from '../ImageGallery/ImageGallery'
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
-import './App.css'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import { useEffect, useState } from 'react';
+import { fetchGallery } from '../../data-api/gallery';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import SearchBar from '../SearchBar/SearchBar';
+import Loader from '../Loader/Loader';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+
 
 export default function App() {
   const [gallery, setGallery] = useState([]);
-  const [isloading, setLoading] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState(""); 
   
- const handleSearch = (newQuery) => {
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState(null);
+  
+  const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
     setGallery([]);
-  }
+  };
 
   const handleLoadMore = () => {
     setPage(page + 1);
   };
+
+  // const openModal = (image) => {
+  //   setSelectedImage(image);
+  //   setModalIsOpen(true);
+  // };
+
+  // const closeModal = () => {
+  //   setSelectedImage(null);
+  //   setModalIsOpen(false);
+  // };
   
 
   useEffect(() => {
-    if (gallery.length === 0) {
+    if (query === "") {
       return;
-  }
-  async function getImages() {
+    }
+    
+    async function getImages() {
+    
     try {
       setError(false);
-      setLoading(true);
-      const data = await fetchGallery(gallery, page);
+      setIsLoading(true);
+      const data = await fetchGallery(query, page);
       setGallery((prevGallery) => {
-        return [...prevGallery, ...data.results];
+        return [...prevGallery, ...data];
       });
+
     } catch (error) {
       setError(true);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }
+    }
+    
   getImages();
-}, [page, query, gallery.length]);
+  }, [page, query]);
+  
+  const LoadMoreImg = gallery.length > 0 && !error && !isloading;
 
   return (
-    <>
+<div>
       <SearchBar onSubmit={handleSearch} />
-       
-      {error ? <ErrorMessage /> : (gallery.length > 0 && <ImageGallery items={gallery}/> )}
-
-      <LoadMoreBtn onClick={handleLoadMore} />
-    </>
+      {isloading && <Loader />}
+      {error && <ErrorMessage />}
+      {gallery.length > 0 && <ImageGallery images={images} />}
+      {LoadMoreImg && <LoadMoreBtn onClick={handleLoadMore} /> }
+</div>  
   )
 }
 
