@@ -4,6 +4,7 @@ import { fetchGallery } from '../../gallery'
 import ImageGallery from '../ImageGallery/ImageGallery'
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn'
 import './App.css'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 export default function App() {
   const [gallery, setGallery] = useState([]);
@@ -47,9 +48,9 @@ export default function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      
-      {gallery.length > 0 && <ImageGallery items={gallery}/> }
-      
+       
+      {error ? <ErrorMessage /> : (gallery.length > 0 && <ImageGallery items={gallery}/> )}
+
       <LoadMoreBtn onClick={handleLoadMore} />
     </>
   )
