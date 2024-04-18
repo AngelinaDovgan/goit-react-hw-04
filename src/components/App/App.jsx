@@ -70,7 +70,7 @@ export default function App() {
       <SearchBar onSubmit={handleSearch} />
       {isloading && <Loader />}
       {error && <ErrorMessage />}
-      {gallery.length > 0 && <ImageGallery images={images} />}
+      {gallery.length > 0 && <ImageGallery images={gallery} />}
       {LoadMoreImg && <LoadMoreBtn onClick={handleLoadMore} /> }
 </div>  
   )

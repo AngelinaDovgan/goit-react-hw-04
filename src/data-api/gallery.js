@@ -19,3 +19,7 @@ export const fetchGallery = async (searchQuery, currentPage) => {
 }
 
 
+
+
+
+
