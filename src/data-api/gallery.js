@@ -4,7 +4,7 @@ import { KEY } from "./KEY";
 axios.defaults.baseURL = "https://api.unsplash.com";
 
 export const fetchGallery = async (searchQuery, currentPage) => {
-    const response = await axios.get(`/search/photos`, {
+    const response = await axios.get(`/search/photos?`, {
 
         params: {
             client_id: KEY,
