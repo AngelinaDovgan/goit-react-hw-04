@@ -67,7 +67,7 @@ export default function App() {
 
   return (
 <div>
-      <SearchBar onSubmit={handleSearch} />
+      <SearchBar onSearch={handleSearch} />
       {isloading && <Loader />}
       {error && <ErrorMessage />}
       {gallery.length > 0 && <ImageGallery images={gallery} />}
