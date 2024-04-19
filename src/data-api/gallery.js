@@ -11,7 +11,7 @@ export const fetchGallery = async (searchQuery, currentPage) => {
             query: searchQuery,
             orientation: 'landscape',
             page: currentPage,
-            per_page: 12
+            per_page: 6
         },
     });
     console.log(response.data.results)

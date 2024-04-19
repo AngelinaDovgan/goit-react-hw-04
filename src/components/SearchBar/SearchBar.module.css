@@ -1,0 +1,16 @@
+.btn {
+    background-color: rgba(206, 53, 157, 0.6);
+    color: white;
+    letter-spacing: 0.5px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-left: 15px;
+    width: 170px;
+}
+
+:hover.btn {
+    background-color: rgb(107, 23, 107);
+}
+
+.field {
+    height: 40.19px;
+}
