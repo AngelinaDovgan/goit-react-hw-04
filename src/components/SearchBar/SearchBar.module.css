@@ -12,5 +12,11 @@
 }
 
 .field {
-    height: 40.19px;
+    height: 35px;
+    padding: 0;
+    padding-left: 5px;
+    width: 170px;
+    border-radius: 4px;
+    border-color: transparent;
+    margin-bottom: 15px;
 }

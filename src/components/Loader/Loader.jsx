@@ -8,8 +8,9 @@ export default function Loader () {
   height="80"
   width="80"
   ariaLabel="dna-loading"
-  wrapperStyle={{}}
-  wrapperClass="dna-wrapper"
+wrapperStyle={{}}
+wrapperClass="dna-wrapper"
+    
   />
         </div>
     )

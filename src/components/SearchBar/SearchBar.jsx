@@ -14,6 +14,7 @@ export default function SearchBar({ onSearch }) {
             toast.error("Please type your text!")
           } else {
             onSearch(values.query);
+            toast.success("Awesome!🥳")
             actions.resetForm()
           }
         }}>
